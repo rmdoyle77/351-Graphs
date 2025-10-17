@@ -1,0 +1,10 @@
+# Sample directed graph
+V: A, B, C, D, E, F
+# Edges (you can mix 'A B' and 'A->B' styles)
+A B
+A C
+B D
+C D
+D E
+E F
+C F
