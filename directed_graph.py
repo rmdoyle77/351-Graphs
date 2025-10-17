@@ -1,4 +1,3 @@
-"""Directed graph implementation that satisfies the provided interfaces."""
 from __future__ import annotations
 from typing import Dict, List, Set, Hashable
 from collections import deque
@@ -8,7 +7,6 @@ from graph_interfaces import GraphInterface, TraversalInterface, Vertex
 
 class DirectedGraph(GraphInterface, TraversalInterface):
     def __init__(self) -> None:
-        # adjacency list: vertex -> sorted list of neighbors (kept stable insertion order)
         self._adj: Dict[Vertex, List[Vertex]] = {}
 
     # --- GraphInterface ---
@@ -21,7 +19,6 @@ class DirectedGraph(GraphInterface, TraversalInterface):
             self._adj[src] = []
         if dst not in self._adj:
             self._adj[dst] = []
-        # prevent duplicates while preserving order
         if dst not in self._adj[src]:
             self._adj[src].append(dst)
 
@@ -39,7 +36,6 @@ class DirectedGraph(GraphInterface, TraversalInterface):
     def has_edge(self, src: Vertex, dst: Vertex) -> bool:
         return src in self._adj and dst in self._adj[src]
 
-    # --- TraversalInterface ---
     def bfs(self, start: Vertex) -> List[Vertex]:
         if start not in self._adj:
             raise KeyError(f"Start vertex {start!r} not in graph")
@@ -67,7 +63,6 @@ class DirectedGraph(GraphInterface, TraversalInterface):
                 continue
             seen.add(v)
             order.append(v)
-            # push neighbors in reverse to visit in original insertion order
             nbrs = self._adj[v]
             for w in reversed(nbrs):
                 if w not in seen:
